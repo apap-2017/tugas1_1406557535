@@ -1,0 +1,92 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:include="/layout/master :: master">
+
+<div th:fragment="content" class="">
+	<!-- Container -->
+	<h3 class="my-4"
+		th:text="'Lihat Data Keluarga - ' + ${keluarga.nomor_kk}">Lihat
+		Keluarga</h3>
+	<!--  Lihat Keluarga Berdasarkan Nomor KK -->
+	<div class="content">
+		<!--  Data Keluarga -->
+		<div class="table-container">
+			<table class="table table-condensed" id="tabel-keluarga"
+				cellspacing="0" style="font-size: 16px;">
+				<tr>
+					<td width="10%"><b>NKK</b></td>
+					<td style="width: 1%;">:</td>
+					<td th:text="${keluarga.nomor_kk}">Keluarga NKK</td>
+				</tr>
+				<tr>
+					<td width="10%"><b>Alamat</b></td>
+					<td style="width: 1%;">:</td>
+					<td th:text="${keluarga.alamat}">Keluarga Alamat</td>
+				</tr>
+				<tr>
+					<td width="10%"><b>RT/RW</b></td>
+					<td style="width: 1%;">:</td>
+					<td th:text="${keluarga.RT} + '/' + ${keluarga.RW}">Keluarga
+						RT/RW</td>
+				</tr>
+				<tr>
+					<td width="10%"><b>Kelurahan/Desa</b></td>
+					<td style="width: 1%;">:</td>
+					<td th:text="${keluarga.kelurahan.nama_kelurahan}">Keluarga Kelurahan/Desa</td>
+				</tr>
+				<tr>
+					<td width="10%"><b>Kecamatan</b></td>
+					<td style="width: 1%;">:</td>
+					<td th:text="${keluarga.kelurahan.kecamatan.nama_kecamatan}">Kecamatan</td>
+				</tr>
+				<tr>
+					<td width="10%"><b>Kota</b></td>
+					<td style="width: 1%;">:</td>
+					<td th:text="${keluarga.kelurahan.kecamatan.kota.nama_kota}">Kota</td>
+				</tr>
+			</table>
+			<hr/>
+			
+      <table id="myTable" class="table">
+	    <thead>
+	      <tr>
+	        <th>No</th>
+	        <th>Nama Lengkap</th>
+	        <th>NIK</th>
+	        <th>Jenis Kelamin</th>
+	        <th>Tempat Lahir</th>
+	        <th>Tanggal Lahir</th>
+	        <th>Agama</th>
+	        <th>Pekerjaan</th>
+	        <th>Status Perkawinan</th>
+	        <th>Status dalam Keluarga</th>
+	        <th>Kewarganegaraan</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	    <tr th:each="keluarga,iterationStatus: ${keluarga.penduduks}">
+	    	<td th:text="${iterationStatus.count}">No. 1</td>
+	    	<td th:text="${keluarga.nama}">Nama</td>
+	    	<td th:text="${keluarga.nik}">NIK</td>
+	    	<td></td>
+	    	<td></td>
+	    	<td></td>
+	    	<td></td>
+	    	<td></td>
+	    	<td></td>
+	    	<td></td>
+	    	<td></td>
+	  	</tr>
+	    </tbody>
+	  </table>
+			
+		</div>
+		<!--  end of Data Keluarga -->
+		<hr />
+	</div>
+
+	<!--  end of Lihat Keluarga Berdasarkan Nomor KK -->
+	<!-- end of Container -->
+
+</div>
+</html>

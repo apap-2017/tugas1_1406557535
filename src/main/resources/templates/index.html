@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:include="/layout/master :: master">
+
+<div th:fragment="content" class="container">
+	<!-- Container -->
+	<h3 class="my-4">Sistem Informasi Kependudukan Online Provinsi DKI
+		Jakarta</h3>
+	<p class="my-4">Selamat datang di Sistem Informasi Kependudukan
+		Online Provinsi DKI Jakarta</p>
+
+	<hr />
+
+	<!--  Lihat Penduduk Berdasarkan NIK -->
+	<div class="row">
+		<div class="col-lg-8 mb-4">
+			<h5>Lihat Data Penduduk berdasarkan NIK</h5>
+			<form name="sentMessage" id="penduduk" action="/penduduk" method="get">
+				<div class="control-group form-group">
+					<div class="controls">
+						<label>Masukkan Nomor Induk Kependudukan</label> 
+						<input type="text" class="form-control" id="nik" name="nik" data-validation-required-message="Mohon masukkan NIK" required="true"/>
+						<p class="help-block"></p>
+					</div>
+				</div>
+				<button style="cursor:pointer;" type="submit" class="btn btn-primary">Lihat</button>
+			</form>
+		</div>
+	</div>
+	<!--  end of Lihat Penduduk Berdasarkan NIK -->
+	
+	<hr />
+	
+	<!--  Lihat Data Keluarga Berdasarkan NKK -->
+	<div class="row">
+		<div class="col-lg-8 mb-4">
+			<h5>Lihat Data Keluarga berdasarkan NKK</h5>
+			<form name="sentMessage" id="keluarga" action="/keluarga" method="get">
+				<div class="control-group form-group">
+					<div class="controls">
+						<label>Masukkan Nomor Kartu Keluarga</label> 
+						<input type="text" class="form-control" id="nomor_kk" name="nomor_kk" data-validation-required-message="Mohon masukkan NKK" required="true"/>
+						<p class="help-block"></p>
+					</div>
+				</div>
+				<button style="cursor:pointer;"  type="submit" class="btn btn-primary">Lihat</button>
+			</form>
+		</div>
+	</div>
+	<!--  end of Lihat Penduduk Berdasarkan NIK -->
+	
+	<!-- end of Container -->
+
+</div>
+</html>
