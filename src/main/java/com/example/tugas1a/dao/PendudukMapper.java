@@ -53,17 +53,21 @@ public interface PendudukMapper {
 	PendudukModel selectPenduduk (@Param("nik") String nik);
 	
 	//to select one of keluarga based on ID
-	@Select("SELECT * FROM keluarga WHERE id = #{id}")
-	@Results(value = { 
-			@Result(property = "id", column = "id"),
+	@Select("select * " 
+			+ "from keluarga "
+			+ "where keluarga.id = #{id_keluarga}")
+	@Results(value = { @Result(property = "id", column = "id"), 
 			@Result(property = "nomor_kk", column = "nomor_kk"),
 			@Result(property = "alamat", column = "alamat"),
-			@Result(property = "RT", column = "RT"),
-			@Result(property = "RW", column = "RW"),
+			@Result(property = "rt", column = "rt"),
+			@Result(property = "rw", column = "rw"),
 			@Result(property = "id_kelurahan", column = "id_kelurahan"),
 			@Result(property = "is_tidak_berlaku", column = "is_tidak_berlaku"),
-			@Result(property = "kelurahan", column = "id", javaType = KelurahanModel.class, one = @One(select = "selectKelurahan")) })
-	KeluargaModel selectKeluarga(@Param("id") String id);
+			@Result(property = "kelurahan", column = "id_kelurahan", 
+			javaType = KelurahanModel.class,
+			many = @Many(select = "selectKelurahan")) })
+	KeluargaModel selectKeluarga(@Param("id_keluarga") Integer id_keluarga);
+
 	
 	//to select one of Kelurahan based on ID Kelurahan
 	@Select("SELECT * FROM kelurahan WHERE id = #{id}")
@@ -88,4 +92,96 @@ public interface PendudukMapper {
 			@Result(property = "id", column = "id"),
 			@Result(property = "nama_kota", column = "nama_kota") })
 	KotaModel selectKota(@Param("id") String id);
+
+	@Select("select * " 
+			+ "from penduduk, keluarga "
+			+ "where keluarga.id_kelurahan= #{id_kelurahan} and penduduk.id_keluarga = keluarga.id")
+	List<PendudukModel> selectListPenduduk(@Param("id_kelurahan") Integer id_kelurahan);
+
+	
+	@Insert("INSERT INTO penduduk (nik, nama, tempat_lahir, tanggal_lahir, jenis_kelamin, is_wni, "
+			+ "id_keluarga, agama, pekerjaan, status_perkawinan, status_dalam_keluarga, golongan_darah, is_wafat) "
+			+ "VALUES (#{nik}, #{nama}, #{tempat_lahir}, #{tanggal_lahir}, #{jenis_kelamin}, #{is_wni}, "
+			+ "#{id_keluarga}, #{agama}, #{pekerjaan}, #{status_perkawinan}, #{status_dalam_keluarga}, #{golongan_darah}, #{is_wafat})")
+	void addPenduduk(PendudukModel penduduk);
+	
+	
+	@Select("select * " 
+			+ "from penduduk "
+			+ "where nik BETWEEN #{nikMin} and #{nikMax}"
+			+ "order by nik "
+			+ "DESC LIMIT 1 ")
+	PendudukModel selectPendudukTerakhir(@Param("nikMin")String nikMin,@Param("nikMax") String nikMax);
+
+	
+//	@Update("update penduduk set nik = #{nik}, nama= #{nama}, tempat_lahir = #{tempat_lahir}, tanggal_lahir = #{tanggal_lahir}, "
+//			+ "jenis_kelamin = #{jenis_kelamin}, is_wni = #{is_wni}, is_wafat = #{is_wafat}, "
+//			+ "id_keluarga = #{id_keluarga}, agama = #{agama}, pekerjaan =  #{pekerjaan}, "
+//			+ "status_perkawinan = #{status_perkawinan}, status_dalam_keluarga = #{status_dalam_keluarga}, golongan_darah = #{golongan_darah}, is_wafat = #{is_wafat} "
+//			+ "WHERE id=#{id}")
+//	void updatePenduduk(PendudukModel penduduk);
+
+	
+	@Select("select * " 
+			+ "from penduduk,keluarga "
+			+ "where keluarga.id_kelurahan= #{id_kelurahan} and penduduk.id_keluarga = keluarga.id "
+			+ "order by tanggal_lahir "
+			+ "LIMIT 1 ")
+	PendudukModel selectPendudukTertua(@Param("id_kelurahan") Integer id_kelurahan);
+
+	
+	@Select("select * " 
+			+ "from penduduk,keluarga "
+			+ "where keluarga.id_kelurahan= #{id_kelurahan} and penduduk.id_keluarga = keluarga.id "
+			+ "order by tanggal_lahir "
+			+ "DESC LIMIT 1 ")
+	PendudukModel selectPendudukTermuda(@Param("id_kelurahan") Integer id_kelurahan);
+
+	@Select("select * " 
+			+ "from penduduk, keluarga "
+			+ "where keluarga.nomor_kk= #{nkk} and penduduk.id_keluarga = keluarga.id")
+	List<PendudukModel> selectAnggotaKeluarga(@Param("nkk") String nkk);
+
+	@Update("update keluarga set nomor_kk = #{nomor_kk}, alamat= #{alamat}, rt = #{rt}, rw = #{rw}, "
+			+ "id_kelurahan = #{id_kelurahan}, is_tidak_berlaku = #{is_tidak_berlaku} "
+			+ "WHERE id=#{id}")
+	void updateKeluarga(KeluargaModel keluarga);
+	
+	@Update("UPDATE penduduk SET is_wafat=1 WHERE nik=#{nik}")
+	void setWafat(@Param("nik") String nik);
+
+	@Select("select * " 
+			+ "from kota ")
+	List<KotaModel> selectDaftarKota();
+	
+	@Select("select * " 
+			+ "from kecamatan ")
+	List<KecamatanModel> selectDaftarKecamatan();
+	
+	@Select("select * " 
+			+ "from kelurahan ")
+	List<KelurahanModel> selectDaftarKelurahan();
+	
+
+	@Select("SELECT nik FROM penduduk WHERE nik BETWEEN #{minNik} AND #{maxNik}"
+			+ "ORDER BY nik DESC LIMIT 1")
+	String selectLast(@Param("minNik") String minNik, @Param("maxNik") String maxNik);
+	
+	@Update("update penduduk SET nik = #{newNik}, nama =#{nama}, tempat_lahir = #{tempat_lahir}, "
+			+ "tanggal_lahir = #{tanggal_lahir}, jenis_kelamin = #{jenis_kelamin}, "
+			+ "golongan_darah = #{golongan_darah}, agama = #{agama}, status_perkawinan = #{status_perkawinan}, "
+			+ "pekerjaan = #{pekerjaan}, is_wni = #{is_wni}, is_wafat = #{is_wafat}, id_keluarga = #{id_keluarga}, "
+			+ "status_dalam_keluarga = #{status_dalam_keluarga} WHERE nik = #{nik}")
+	 void updatePenduduk(@Param("nik") String nik, @Param("newNik") String newNik, 
+			 @Param("nama") String nama, 
+			 @Param("tempat_lahir") String tempat_lahir, 
+			 @Param("tanggal_lahir")String tanggal_lahir, 
+			 @Param("jenis_kelamin") int jenis_kelamin, 
+			 @Param("golongan_darah")String golongan_darah, 
+			 @Param("agama") String agama, 
+			 @Param("status_perkawinan")String status_perkawinan,
+			 @Param("pekerjaan")String pekerjaan, @Param("is_wni")int is_wni, 
+			 @Param("is_wafat")int is_wafat, @Param("id_keluarga") int id_keluarga,
+			 @Param("status_dalam_keluarga") String status_dalam_keluarga);
+
 }

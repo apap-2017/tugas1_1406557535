@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:include="/layout/master :: master">
+
+<div th:fragment="content" class="container">
+	<h3 class="my-4" th:text="'Tambah Penduduk'">Tambah Penduduk</h3>
+	<!--  Tambah Penduduk -->
+	<div class="row">
+		<div class="col-lg-8 mb-4">
+					
+			<form class="form-horizontal" th:action="@{/penduduk/cari}" method="get">   
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Kota</label>
+					<div class="col-sm-10">
+						<select name="kt" onblur="selectKecamatan(this.value)" class="form-control">
+							<option value="">Pilih Kota</option>
+							<div th:each="kota, iterationStatus: ${daftarKota}">
+								<option th:text="${kota.nama_kota}" th:value="${kota.id}"></option>
+							</div>
+						</select>
+					</div>
+				</div>
+					
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Kecamatan</label>
+					<div class="col-sm-10">
+						<select id="idSelectKecamatan" th:onblur="'selectKelurahan(this.value)'" name="kc" class="form-control">
+							<option value="0" >Pilih Kecamatan</option>
+						</select>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Kelurahan</label>
+					<div class="col-sm-10">
+						<select name="kl" id="idSelectKelurahan" class="form-control">
+							<option value="0" >Pilih Kelurahan</option>
+						</select>
+					</div>
+				</div>
+		    
+		    <div>
+				<button type="submit" class="btn btn-sm bg-teal pull-right">Submit</button>
+			</div>
+		</form>		
+		</div>
+	</div>
+	<!--  end of Cari Penduduk -->
+
+	<!-- end of Container -->
+
+</div>
+</html>

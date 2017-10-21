@@ -3,11 +3,13 @@
 	th:include="/layout/master :: master">
 
 <div th:fragment="content" class="container">
-	<h3 class="my-4" th:text="'Tambah Penduduk'">Tambah Penduduk</h3>
-	<!--  Tambah Penduduk -->
-	<div class="row">
-		<div class="col-lg-8 mb-4">
-			<form class="form-horizontal" th:action="@{/penduduk/tambah}" th:object="${pendudukModel}" method="post">
+	<!-- Container -->
+	<h3 class="my-4">Sistem Informasi Kependudukan Online Provinsi DKI
+		Jakarta</h3>
+	<p class="my-4">Selamat datang di Sistem Informasi Kependudukan
+		Online Provinsi DKI Jakarta</p>
+		
+		<form class="form-horizontal" th:action="@{/penduduk/ubah/__${nik}__}" th:object="${pendudukModel}" method="post">
 			   	<div class="form-group">
 					<label class="col-sm-2 control-label">Nama</label>
 					<div class="col-sm-10">
@@ -40,7 +42,7 @@
 					<label class="col-sm-2 control-label">Jenis Kelamin</label>
 					<div class="col-sm-10">
 						<select class="form-control type" name="jenis_kelamin">
-							<option value="" selected="selected">Pilih Jenis Kelamin</option>
+							<option value="">Pilih Jenis Kelamin</option>
 							<option value="0">Pria</option>
 							<option value="1">Wanita</option>
 						</select>
@@ -61,15 +63,15 @@
 					<label class="col-sm-2 control-label">Golongan Darah</label>
 					<div class="col-sm-10">
 						<select class="form-control type" name="golongan_darah">
-							<option value="" selected="selected">Pilih Golongan Darah</option>
-							<option value="A+">A+</option>
-							<option value="A-">A-</option>
-							<option value="B+">B+</option>
-							<option value="B-">B-</option>							
-							<option value="O+">O+</option>
-							<option value="O-">O-</option>
-							<option value="AB+">AB+</option>
-							<option value="AB-">AB-</option>		
+							<option th:value="${pendudukModel.golongan_darah}" th:text="${pendudukModel.golongan_darah}" selected="selected">Pilih Golongan Darah</option>
+							<option th:if="${pendudukModel.golongan_darah != 'A+'}" value="A+">A+</option>
+							<option th:if="${pendudukModel.golongan_darah != 'A-'}" value="A-">A-</option>
+							<option th:if="${pendudukModel.golongan_darah != 'B+'}" value="B+">B+</option>
+							<option th:if="${pendudukModel.golongan_darah != 'B-'}" value="B-">B-</option>							
+							<option th:if="${pendudukModel.golongan_darah != 'O+'}" value="O+">O+</option>
+							<option th:if="${pendudukModel.golongan_darah != 'O-'}" value="O-">O-</option>
+							<option th:if="${pendudukModel.golongan_darah != 'AB+'}" value="AB+">AB+</option>
+							<option th:if="${pendudukModel.golongan_darah != 'AB-'}" value="AB-">AB-</option>		
 						</select>
 						<label th:if="${#fields.hasErrors('golongan_darah')}" th:errors="*{golongan_darah}"></label>
 					</div>
@@ -88,11 +90,11 @@
 					<label class="col-sm-2 control-label">Status Perkawinan</label>
 					<div class="col-sm-10">
 						<select class="form-control type" name="status_perkawinan">
-							<option value="" selected="selected">Pilih Status Perkawinan</option>
-							<option value="Belum Kawin">Belum Kawin</option>
-							<option value="Kawin">Kawin</option>
-							<option value="Cerai Hidup">Cerai Hidup</option>
-							<option value="Cerai Mati">Cerai Mati</option>		
+							<option th:value="${pendudukModel.status_perkawinan}" th:text="${pendudukModel.status_perkawinan}" selected="selected">Pilih Status Perkawinan</option>
+							<option th:if="${pendudukModel.status_perkawinan != 'Belum Kawin'}" value="Belum Kawin">Belum Kawin</option>
+							<option th:if="${pendudukModel.status_perkawinan != 'Kawin'}" value="Kawin">Kawin</option>
+							<option th:if="${pendudukModel.status_perkawinan != 'Cerai Hidup'}" value="Cerai Hidup">Cerai Hidup</option>
+							<option th:if="${pendudukModel.status_perkawinan != 'Cerai Mati'}" value="Cerai Mati">Cerai Mati</option>		
 						</select>
 						<label th:if="${#fields.hasErrors('status_perkawinan')}" th:errors="*{status_perkawinan}"></label>
 					</div>
@@ -111,9 +113,10 @@
 					<label class="col-sm-2 control-label">Kewarganegaraan</label>
 					<div class="col-sm-10">
 						<select class="form-control type" name="is_wni">
-							<option value="" selected="selected">Pilih Kewarganegaraan</option>
-							<option value="0">WNI</option>
-							<option value="1">WNA</option>
+							<option value="1" th:if="${pendudukModel.is_wni == '1'}" selected="selected">WNI</option>
+							<option value="0" th:if="${pendudukModel.is_wni == '0'}" selected="selected">WNA</option>
+							<option th:if="${pendudukModel.is_wni != 0}" value="0">WNI</option>
+							<option th:if="${pendudukModel.is_wni != 1}" value="1">WNA</option>
 						</select>
 						<label th:if="${#fields.hasErrors('is_wni')}" th:errors="*{is_wni}"></label>
 					</div>
@@ -123,9 +126,10 @@
 					<label class="col-sm-2 control-label">Status Kematian</label>
 					<div class="col-sm-10">
 						<select class="form-control type" name="is_wafat">
-							<option value="" selected="selected">Pilih Status Kematian</option>
-							<option value="0">Hidup</option>
-							<option value="1">Wafat</option>
+							<option value="1" th:if="${pendudukModel.is_wafat == '1'}" selected="selected">Wafat</option>
+							<option value="0" th:if="${pendudukModel.is_wafat == '0'}" selected="selected">Hidup</option>
+							<option th:if="${pendudukModel.is_wafat != '0'}" value="0">Hidup</option>
+							<option th:if="${pendudukModel.is_wafat != '1'}" value="1">Wafat</option>
 						</select>
 						<label th:if="${#fields.hasErrors('is_wafat')}" th:errors="*{is_wafat}"></label>
 					</div>
@@ -142,10 +146,8 @@
 				<button type="submit" class="btn btn-sm bg-teal pull-right" name="action" value="save">Submit</button>
 			</div>
 		</form>	
-		</div>
-	</div>
-	<!--  end of Tambah Penduduk -->
-
+	<hr />
+	
 	<!-- end of Container -->
 
 </div>

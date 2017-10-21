@@ -26,7 +26,7 @@
 				<tr>
 					<td width="10%"><b>RT/RW</b></td>
 					<td style="width: 1%;">:</td>
-					<td th:text="${keluarga.RT} + '/' + ${keluarga.RW}">Keluarga
+					<td th:text="${keluarga.rt} + '/' + ${keluarga.rw}">Keluarga
 						RT/RW</td>
 				</tr>
 				<tr>
@@ -47,38 +47,36 @@
 			</table>
 			<hr/>
 			
-      <table id="myTable" class="table">
-	    <thead>
-	      <tr>
-	        <th>No</th>
-	        <th>Nama Lengkap</th>
-	        <th>NIK</th>
-	        <th>Jenis Kelamin</th>
-	        <th>Tempat Lahir</th>
-	        <th>Tanggal Lahir</th>
-	        <th>Agama</th>
-	        <th>Pekerjaan</th>
-	        <th>Status Perkawinan</th>
-	        <th>Status dalam Keluarga</th>
-	        <th>Kewarganegaraan</th>
-	      </tr>
-	    </thead>
-	    <tbody>
-	    <tr th:each="keluarga,iterationStatus: ${keluarga.penduduks}">
-	    	<td th:text="${iterationStatus.count}">No. 1</td>
-	    	<td th:text="${keluarga.nama}">Nama</td>
-	    	<td th:text="${keluarga.nik}">NIK</td>
-	    	<td></td>
-	    	<td></td>
-	    	<td></td>
-	    	<td></td>
-	    	<td></td>
-	    	<td></td>
-	    	<td></td>
-	    	<td></td>
-	  	</tr>
-	    </tbody>
-	  </table>
+      <table class="table table-striped">
+				<tbody>
+						<tr>
+							<td><strong>Nama Lengkap</strong></td>
+							<td><strong>NIK</strong></td>
+							<td><strong>Jenis Kelamin</strong></td>
+							<td><strong>Tempat Lahir</strong></td>
+							<td><strong>Tanggal Lahir</strong></td>	
+							<td><strong> Agama </strong></td>
+							<td><strong> Pekerjaan </strong></td>
+							<td><strong> Status Perkawinan </strong></td>
+							<td><strong> Status dalam Keluarga </strong></td>
+							<td><strong> Kewarganegaraan </strong></td>
+						</tr>
+					<div th:each="detailAnggota, iterationStatus: ${anggota}">
+						<tr>
+							<td th:text="${detailAnggota.nama}"></td>				
+							<td th:text="${detailAnggota.nik}"></td>
+							<td th:text="${detailAnggota.jenis_kelamin}"></td>
+							<td th:text="${detailAnggota.tempat_lahir}"></td>
+							<td th:text="${detailAnggota.tanggal_lahir}"></td>
+							<td th:text="${detailAnggota.agama}"></td>
+							<td th:text="${detailAnggota.pekerjaan}"></td>
+							<td th:text="${detailAnggota.status_perkawinan}"></td>
+							<td th:text="${detailAnggota.status_dalam_keluarga}"></td>
+							<td th:text="${detailAnggota.is_wni}"></td>
+						</tr>
+					</div>
+				</tbody>			
+		</table>
 			
 		</div>
 		<!--  end of Data Keluarga -->

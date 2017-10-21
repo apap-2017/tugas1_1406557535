@@ -10,14 +10,16 @@
 
 <div th:fragment="content">
 	<div class="table-container">
+	<form th:action="@{/penduduk/mati}" th:object="${pendudukModel}" method="post">
 		<table class="table table-hover table-condensed" id="tabel-mhs" cellspacing="0" style="font-size: 16px;">
-			<tr>
-					<td width="25%"><b>Nama</b></td>
+				<tr>
+					<td width="25%"><b>NIK</b></td>
 					<td style="width: 1%;">:</td>
-					<td th:text="${penduduk.nik}">Penduduk Nama</td>
+					<td th:text="${penduduk.nik}">Penduduk NIK</td>
+					<input type="hidden" name="nik" th:value="${penduduk.nik}"/>
 				</tr>
 				<tr>
-					<td><b>Provinsi</b></td>
+					<td><b>Nama</b></td>
 					<td>:</td>
 					<td th:text="${penduduk.nama}">Penduduk Nama</td>
 				</tr>
@@ -25,9 +27,15 @@
 					<td width="25%"><b>Tempat/Tanggal Lahir</b></td>
 					<td style="width: 1%;">:</td>
 					<td
-						th:text="${penduduk.tempat_lahir} + ', ' + ${#dates.format(penduduk.tanggal_lahir, 'dd MMMM yyyy')}">Penduduk
+						th:text="${penduduk.tempat_lahir} + ', ' + ${penduduk.tanggal_lahir}">Penduduk
 						Tempat/Tanggal Lahir</td>
 				</tr>
+				<tr>
+			   		<td><strong>Jenis Kelamin</strong></td>
+			   		<td style="width: 1%;">:</td>
+					<td th:if="${penduduk.jenis_kelamin == 0}" th:text="Pria"></td>
+					<td th:if="${penduduk.jenis_kelamin == 1}" th:text="Wanita"></td>
+				 </tr>
 				<tr>
 					<td><b>Alamat</b></td>
 					<td>:</td>
@@ -36,7 +44,7 @@
 				<tr>
 					<td width="25%"><b>RT/RW</b></td>
 					<td style="width: 1%;">:</td>
-					<td th:text="${penduduk.keluarga.RT} + '/' + ${penduduk.keluarga.RW}">Penduduk RT/RW</td>
+					<td th:text="${penduduk.keluarga.rt} + '/' + ${penduduk.keluarga.rw}">Penduduk RT/RW</td>
 				</tr>
 				<tr>
 					<td><b>Kelurahan/Desa</b></td>
@@ -86,7 +94,10 @@
 					<td th:if="${penduduk.is_wafat} == '0'">Hidup</td>
 				</tr>
 		</table>
-		<button type="submit" class="btn btn-primary">Nonaktifkan</button>
+			<input type="hidden" name="is_wafat" value="1"/>
+			<button type="submit" class="btn btn-primary" style="cursor:pointer;">Nonaktifkan</button>
+		</form>
+		
 	</div>
 </div>
 

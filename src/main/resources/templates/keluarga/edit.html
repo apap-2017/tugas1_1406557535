@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:include="/layout/master :: master">
+
+<div th:fragment="content" class="container">
+	<!-- Container -->
+	<h3 class="my-4">Sistem Informasi Kependudukan Online Provinsi DKI
+		Jakarta</h3>
+	<p class="my-4">Selamat datang di Sistem Informasi Kependudukan
+		Online Provinsi DKI Jakarta</p>
+		
+		<form class="form-horizontal" th:action="@{/keluarga/ubah/__${nkk}__}" th:object="${keluargaModel}" method="post">
+			   	<div class="form-group">
+					<label class="col-sm-2 control-label">Alamat</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control"
+							name="alamat" th:field="*{alamat}"/>
+						<label th:if="${#fields.hasErrors('alamat')}" th:errors="*{alamat}"></label>
+					</div>
+				</div>
+   				
+   				<div class="form-group">
+					<label class="col-sm-2 control-label">RT</label>
+					<div class="col-sm-10">
+					    <input type="text" class="form-control" 
+					    name="rt" th:field="*{rt}"/>
+					    <label th:if="${#fields.hasErrors('rt')}" th:errors="*{rt}"></label>
+					</div>
+				</div>
+   	
+				<div class="form-group">
+					<label class="col-sm-2 control-label">RW</label>
+					<div class="col-sm-10">
+					    <input type="text" class="form-control" 
+					    name="rw" th:field="*{rw}"/>
+					    <label th:if="${#fields.hasErrors('rw')}" th:errors="*{rw}"></label>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Kota</label>
+					<div class="col-sm-10">
+						<select name="kota" onblur="selectKecamatan(this.value)" class="form-control">
+							<option value="">Pilih Kota</option>
+							<div th:each="kota, iterationStatus: ${daftarKota}">
+								<option th:selected="true" th:if="${keluargaModel.kelurahan.kecamatan.id_kota == kota.id}" th:text="${kota.nama_kota}" th:value="${kota.id}"></option>
+								<option th:if="${keluargaModel.kelurahan.kecamatan.id_kota != kota.id}" th:text="${kota.nama_kota}" th:value="${kota.id}"></option>
+							</div>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Kecamatan</label>
+					<div class="col-sm-10">
+						<select id="idSelectKecamatan" th:onblur="'selectKelurahan(this.value)'" name="kecamatan" class="form-control">
+							<option value="0" >Pilih Kelurahan</option>	
+							<div th:each="kecamatan, iterationStatus: ${daftarKecamatanSaya}">
+								<option th:selected="true" th:if="${keluargaModel.kelurahan.id_kecamatan == kecamatan.id}" th:text="${kecamatan.nama_kecamatan}" th:value="${kecamatan.id}"></option>
+								<option th:if="${keluargaModel.kelurahan.id_kecamatan != kecamatan.id}" th:text="${kecamatan.nama_kecamatan}" th:value="${kecamatan.id}"></option>
+							</div>				
+						</select>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Kelurahan</label>
+					<div class="col-sm-10">
+						<select name="kelurahan" id="idSelectKelurahan" class="form-control">
+							<option value="0" >Pilih Kelurahan</option>
+							<div th:each="kelurahan, iterationStatus: ${daftarKelurahanSaya}">
+								<option th:selected="true" th:if="${keluargaModel.id_kelurahan == kelurahan.id}" th:text="${kelurahan.nama_kelurahan}" th:value="${kelurahan.id}"></option>
+								<option th:if="${keluargaModel.id_kelurahan != kelurahan.id}" th:text="${kelurahan.nama_kelurahan}" th:value="${kelurahan.id}"></option>
+							</div>
+						</select>
+					</div>
+				</div>
+		    <div>
+				<button type="submit" class="btn btn-sm bg-teal pull-right" name="action" value="save">Submit</button>
+			</div>
+		</form>		
+	<hr />
+	
+	<!-- end of Container -->
+
+</div>
+</html>

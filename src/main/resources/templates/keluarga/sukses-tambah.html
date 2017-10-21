@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:include="/layout/master :: master">
+
+<div th:fragment="content" class="container">
+	<!-- Container -->
+	<h3 class="my-4">Sistem Informasi Kependudukan Online Provinsi DKI
+		Jakarta</h3>
+	<p class="my-4">Selamat datang di Sistem Informasi Kependudukan
+		Online Provinsi DKI Jakarta</p>
+		<h1>Sukses!</h1>
+       	<h3 th:text="'Keluarga dengan NKK = ' + ${nomor}+ ' berhasil ditambahkan!'"></h3>
+		<div class="box-footer">
+			<div class="pull-left">
+				<a th:href="@{/keluarga?nkk=__${nomor}__}"
+					class="btn btn-primary btn-block btn-flat">Lihat Data</a>
+			</div>
+		</div>
+	<hr />
+	
+	<!-- end of Container -->
+
+</div>
+</html>

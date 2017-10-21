@@ -20,10 +20,27 @@
 <!-- fontawesome -->
 <link rel="stylesheet" href="/css/font-awesome.min.css"/>
 
+  <!-- Bootstrap core JavaScript
+  ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+  <script src="/js/jquery-3.2.1.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+  <script src="/js/ie10-viewport-bug-workaround.js"></script>
+  <script>
+  $(function() {
+	  $('a[href*=#]').on('click', function(e) {
+	    e.preventDefault();
+	    $('html, body').animate({ scrollTop: $($(this).attr('href')).offset().top}, 500, 'linear');
+	  });
+	});
+  </script>
+
 </head>
 <body>
-   <div class="container">
-    <div class="col-lg-10 offset-lg-1">
+   <div class="row">
+   <div class="col-lg-1"></div>
+    <div class="col-lg-10">
       <div class="header clearfix">
         <nav>
           <ul class="nav nav-pills float-right">
@@ -31,7 +48,14 @@
               <a class="nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/penduduk/add">Add Penduduk</a>
+              <a class="nav-link" href="/penduduk/tambah">Tambah Penduduk</a>
+            </li>
+            
+            <li class="nav-item">
+              <a class="nav-link" href="/keluarga/tambah">Tambah Keluarga</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/penduduk/cari">Cari Penduduk</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Contact</a>
@@ -44,7 +68,7 @@
       <div class="jumbotron">
         <h4 class="display-5">SI Kependudukan Online Provinsi DKI Jakarta</h4>
         <br/>
-        <p><a class="btn btn-xs btn-success" href="#down" role="button">Go</a></p>
+        <p><a class="btn btn-xs btn-success" href="#down" role="button">V</a></p>
       </div>
 		
 		<div class="row marketing" id="down">
@@ -82,22 +106,9 @@
         <p class="text-center"> Luthfi Abdurrahim &copy; 2017</p>
       </footer>
 	</div>
+	<div class="col-lg-1"></div>
     </div> <!-- /container -->
 
-  <!-- Bootstrap core JavaScript
-  ================================================== -->
-  <!-- Placed at the end of the document so the pages load faster -->
-  <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-  <script src="/js/jquery-3.2.1.min.js"></script>
-  <script src="/js/bootstrap.min.js"></script>
-  <script src="/js/ie10-viewport-bug-workaround.js"></script>
-  <script>
-  $(function() {
-	  $('a[href*=#]').on('click', function(e) {
-	    e.preventDefault();
-	    $('html, body').animate({ scrollTop: $($(this).attr('href')).offset().top}, 500, 'linear');
-	  });
-	});
-  </script>
+
 </body>
 </html>

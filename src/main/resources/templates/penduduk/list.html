@@ -1,0 +1,88 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:include="/layout/master :: master">
+
+<div th:fragment="content" class="container">
+	<h3 class="my-4" th:text="'List Penduduk'">List Penduduk</h3>
+	<!--  List Penduduk -->
+	<div class="row">
+		<div class="col-lg-8 mb-4">
+					
+			<table class="table table-striped">
+			<h4>Penduduk Tertua</h4	>
+			<tbody>
+				<tr>
+			   		<td><strong>NIK</strong></td>
+				    <td th:text="${pendudukTertua.nik} "></td>
+				 </tr>
+				 
+				 <tr>
+			   		<td><strong>Nama</strong></td>
+					<td th:text="${pendudukTertua.nama} "></td>
+				 </tr>
+				
+				<tr>
+			   		<td><strong>Tempat/Tanggal Lahir</strong></td>
+					<td th:text="${pendudukTertua.tempat_lahir} +', ' + ${pendudukTertua.tanggal_lahir} "></td>
+				 </tr>
+			</tbody>
+		</table>
+		
+		<table class="table table-striped">
+			<h4>Penduduk Termuda</h4>
+			<tbody>
+				<tr>
+			   		<td><strong>NIK</strong></td>
+				    <td th:text="${pendudukTermuda.nik} "></td>
+				 </tr>
+				 
+				 <tr>
+			   		<td><strong>Nama</strong></td>
+					<td th:text="${pendudukTermuda.nama} "></td>
+				 </tr>
+				
+				<tr>
+			   		<td><strong>Tempat/Tanggal Lahir</strong></td>
+					<td th:text="${pendudukTermuda.tempat_lahir} +', ' + ${pendudukTermuda.tanggal_lahir} "></td>
+				 </tr>
+			</tbody>
+		</table>
+		
+		<table class="table table-striped">
+				<tbody>
+						<tr>
+							<td><strong>No.</strong></td>
+							<td><strong>Nama Lengkap</strong></td>
+							<td><strong>NIK</strong></td>
+							<td><strong>Jenis Kelamin</strong></td>
+							<td><strong>Tempat Lahir</strong></td>
+							<td><strong>Tanggal Lahir</strong></td>	
+							<td><strong> Agama </strong></td>
+							<td><strong> Pekerjaan </strong></td>
+							<td><strong> Status Perkawinan </strong></td>
+							<td><strong> Kewarganegaraan </strong></td>
+						</tr>
+					<div th:each="detailAnggota, iterationStatus: ${listPenduduk}">
+						<tr>
+							<td th:text="${iterationStatus.count}"></td>
+							<td th:text="${detailAnggota.nama}"></td>				
+							<td th:text="${detailAnggota.nik}"></td>
+							<td th:text="${detailAnggota.jenis_kelamin}"></td>
+							<td th:text="${detailAnggota.tempat_lahir}"></td>
+							<td th:text="${detailAnggota.tanggal_lahir}"></td>
+							<td th:text="${detailAnggota.agama}"></td>
+							<td th:text="${detailAnggota.pekerjaan}"></td>
+							<td th:text="${detailAnggota.status_perkawinan}"></td>
+							<td th:text="${detailAnggota.is_wni}"></td>
+						</tr>
+					</div>
+				</tbody>			
+		</table>	
+		</div>
+	</div>
+	<!--  end of List Penduduk -->
+
+	<!-- end of Container -->
+
+</div>
+</html>
