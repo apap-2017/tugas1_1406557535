@@ -1,6 +1,7 @@
 package com.example.tugas1a.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.example.tugas1a.model.KecamatanModel;
 import com.example.tugas1a.model.KeluargaModel;
@@ -45,4 +46,16 @@ public interface PendudukService {
 
 
 	String getLast(String minNik, String maxNik);
+
+	List<KecamatanModel> selectKecamatanByKota(String id_kota);
+
+	List<PendudukModel> selectPendudukByKelurahan(String id_kelurahan);
+
+	List<KelurahanModel> selectKelurahansByKecamatan(String id_kecamatan);
+
+	KotaModel selectKotaSearch(Optional<Integer> id_kota);
+
+	KecamatanModel selectKecamatanSearch(Optional<Integer> id_kecamatan);
+	
+	KelurahanModel selectKelurahanSearch(Optional<Integer> id_kelurahan);
 }

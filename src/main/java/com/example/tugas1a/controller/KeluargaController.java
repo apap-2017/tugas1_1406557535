@@ -108,7 +108,7 @@ public class KeluargaController {
         
         if(keluarga==null){
         	model.addAttribute("nomor",nkk);
-        	return "not-found";
+        	return "error/404";
         }else{
         	
         	

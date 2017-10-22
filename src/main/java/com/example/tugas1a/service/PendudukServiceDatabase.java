@@ -7,6 +7,7 @@ import com.example.tugas1a.model.KotaModel;
 import com.example.tugas1a.model.PendudukModel;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -119,5 +120,41 @@ public class PendudukServiceDatabase implements PendudukService {
 		//System.out.println("WWW " + nik );
 		// TODO Auto-generated method stub
 		
+	}
+	
+	@Override
+	public List<KecamatanModel> selectKecamatanByKota(String id_kota) {
+		// TODO Auto-generated method stub
+		return pendudukMapper.selectKecamatanByKota(Integer.parseInt(id_kota));
+	}
+	
+	@Override
+	public KotaModel selectKotaSearch(Optional<Integer> id_kota) {
+		// TODO Auto-generated method stub
+		return pendudukMapper.selectKotaSearch(id_kota.get());
+	}
+	
+	@Override
+	public KecamatanModel selectKecamatanSearch(Optional<Integer> id_kecamatan) {
+		// TODO Auto-generated method stub
+		return pendudukMapper.selectKecamatanSearch(id_kecamatan.get());
+	}
+	
+	@Override
+	public KelurahanModel selectKelurahanSearch(Optional<Integer> id_kelurahan) {
+		// TODO Auto-generated method stub
+		return pendudukMapper.selectKelurahanSearch(id_kelurahan.get());
+	}
+	
+	@Override
+	public List<PendudukModel> selectPendudukByKelurahan(String id_kelurahan) {
+		// TODO Auto-generated method stub
+		return pendudukMapper.selectPendudukByDaerah(Integer.parseInt(id_kelurahan));
+	}
+	
+	@Override
+	public List<KelurahanModel> selectKelurahansByKecamatan(String id_kecamatan) {
+		// TODO Auto-generated method stub
+		return pendudukMapper.selectKelurahansByKecamatan(Integer.parseInt(id_kecamatan));
 	}
 }

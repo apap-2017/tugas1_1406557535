@@ -1,9 +1,17 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-    <head>
- 		<title>404 Not found</title>
-    </head>
-    <body>
-		<h2>Halaman tidak ditemukan</h2>
-    </body>
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:include="/layout/master :: master">
+
+<div th:fragment="content" class="container">
+	<!-- Container -->
+	<h3 class="my-4">Sistem Informasi Kependudukan Online Provinsi DKI
+		Jakarta</h3>
+	<p class="my-4">Selamat datang di Sistem Informasi Kependudukan
+		Online Provinsi DKI Jakarta</p>
+		<h1>Halaman atau data tidak ditemukan</h1>
+	<hr />
+	
+	<!-- end of Container -->
+
+</div>
 </html>

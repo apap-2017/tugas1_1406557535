@@ -1,0 +1,112 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:include="/layout/master :: master">
+
+<div th:fragment="content" class="row">
+	<!-- Container -->
+	
+        
+        <script src="/js/jquery-3.2.1.min.js"></script>
+	    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
+	  	
+		<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+	    <script>
+	        $(document).ready(function () {
+	            $('#tabel-penduduk').DataTable();
+	        });
+	    </script>
+		
+	
+        
+        <div class="row">
+        <div class="col-12 text-left">
+	      <h1 th:text="'Hasil Pencarian Penduduk: '+ ${namaKota.nama_kota} +', '+ ${namaKecamatan.nama_kecamatan} + ', '+ ${namaKelurahan.nama_kelurahan}" class="text-left">Hasil Pencarian Penduduk: </h1><hr/><hr/>
+	      </div>
+		       	  <div class="col"><table class="table table-striped">
+						<h4>Penduduk Tertua</h4	>
+						<tbody>
+							<tr>
+						   		<td><strong>NIK</strong></td>
+							    <td th:text="${pendudukTertua.nik} "></td>
+							 </tr>
+							 
+							 <tr>
+						   		<td><strong>Nama</strong></td>
+								<td th:text="${pendudukTertua.nama} "></td>
+							 </tr>
+							
+							<tr>
+						   		<td><strong>Tempat/Tanggal Lahir</strong></td>
+								<td th:text="${pendudukTertua.tempat_lahir} +', ' + ${pendudukTertua.tanggal_lahir} "></td>
+							 </tr>
+						</tbody>
+					</table></div>
+				  <div class="col"><table class="table table-striped">
+						<h4>Penduduk Termuda</h4>
+						<tbody>
+							<tr>
+						   		<td><strong>NIK</strong></td>
+							    <td th:text="${pendudukTermuda.nik} "></td>
+							 </tr>
+							 
+							 <tr>
+						   		<td><strong>Nama</strong></td>
+								<td th:text="${pendudukTermuda.nama} "></td>
+							 </tr>
+							
+							<tr>
+						   		<td><strong>Tempat/Tanggal Lahir</strong></td>
+								<td th:text="${pendudukTermuda.tempat_lahir} +', ' + ${pendudukTermuda.tanggal_lahir} "></td>
+							 </tr>
+						</tbody>
+					</table></div>
+			        
+				
+					
+				</div>
+				
+			
+			
+		<div class="row"><hr/></div>
+		<div class="row">
+			<table id="tabel-penduduk">
+						<thead>
+							<tr>
+								<th><strong>No.</strong></th>
+								<th><strong>Nama Lengkap</strong></th>
+								<th><strong>NIK</strong></th>
+								<th><strong>Jenis Kelamin</strong></th>
+								<th><strong>Tempat Lahir</strong></th>
+								<th><strong>Tanggal Lahir</strong></th>	
+								<th><strong> Agama </strong></th>
+								<th><strong> Pekerjaan </strong></th>
+								<th><strong> Status Perkawinan </strong></th>
+								<th><strong> Kewarganegaraan </strong></th>
+							</tr>
+						</thead>
+						<tbody>
+						<div th:each="detailAnggota, iterationStatus: ${listPenduduk}">
+							<tr>
+								<td th:text="${iterationStatus.count}"></td>
+								<td th:text="${detailAnggota.nama}"></td>				
+								<td th:text="${detailAnggota.nik}"></td>
+		        				<td th:text="Pria" th:if="${detailAnggota.jenis_kelamin} == 0"></td>
+		        				<td th:text="Wanita" th:if="${detailAnggota.jenis_kelamin} == 1"></td>
+								<td th:text="${detailAnggota.tempat_lahir}"></td>
+								<td th:text="${detailAnggota.tanggal_lahir}"></td>
+								<td th:text="${detailAnggota.agama}"></td>
+								<td th:text="${detailAnggota.pekerjaan}"></td>
+								<td th:text="${detailAnggota.status_perkawinan}"></td>
+								<td th:text="WNI" th:if="${detailAnggota.is_wni} == 1"></td>
+								<td th:text="WNA" th:if="${detailAnggota.is_wni} == 0"></td>
+							</tr>
+						</div>
+					</tbody>			
+			</table>
+		</div>
+	<hr />
+	
+	<!-- end of Container -->
+
+</div>
+</html>

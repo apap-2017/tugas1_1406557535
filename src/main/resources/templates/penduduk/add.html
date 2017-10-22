@@ -30,7 +30,7 @@
 					<label class="col-sm-2 control-label">Tanggal Lahir</label>
 					<div class="col-sm-10">
 					    <input type="text" class="form-control" 
-					    name="tanggal_lahir" th:field="*{tanggal_lahir}"/>
+					    name="tanggal_lahir" th:field="*{tanggal_lahir}" placeholder="Format: YYYY-MM-DD"/>
 					    <label th:if="${#fields.hasErrors('tanggal_lahir')}" th:errors="*{tanggal_lahir}"></label>
 					</div>
 				</div>

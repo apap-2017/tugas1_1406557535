@@ -50,6 +50,7 @@ public class PendudukController {
 	@RequestMapping("/penduduk")
 	public String pendudukViewNIK(Model model, @RequestParam(value="nik", required=true) String nik) {
 		PendudukModel penduduk = pendudukDAO.selectPenduduk(nik);
+		
 		if (penduduk != null) {
 			model.addAttribute("penduduk", penduduk);
 			return "penduduk/view";
@@ -114,51 +115,6 @@ public class PendudukController {
     	}
     }
     
-//    @RequestMapping(value= "/penduduk/cari")
-//    public String cariPenduduk(Model model) 
-//    {
-//    	List<KotaModel> daftarKota = pendudukDAO.selectDaftarKota();
-//    	List<KecamatanModel> daftarKecamatan = pendudukDAO.selectDaftarKecamatan();
-//    	List<KelurahanModel> daftarKelurahan = pendudukDAO.selectDaftarKelurahan();
-//    	
-//    	model.addAttribute("daftarKota", daftarKota);
-//    	model.addAttribute("daftarKecamatan", daftarKecamatan);
-//    	model.addAttribute("daftarKelurahan", daftarKelurahan);
-//        return "penduduk/cari";
-//    }
-    
-    @RequestMapping(value= "/penduduk/cari", method = RequestMethod.GET)
-    public String cariPendudukSubmit (Model model, 
-    		@RequestParam(value = "kt") Optional<Integer> idKota,
-    		@RequestParam(value = "kc") Optional<Integer> idKecamatan,
-    		@RequestParam(value = "kl") Optional<Integer> idKelurahan)
-    {
-    	// Cari penduduknya
-    	if(idKota.isPresent() && idKecamatan.isPresent() && idKelurahan.isPresent()) {
-    		List <PendudukModel> listPenduduk = pendudukDAO.selectListPenduduk(idKelurahan.get());
-    	
-    		PendudukModel pendudukTertua = pendudukDAO.selectPendudukTertua(idKelurahan.get());
-    		PendudukModel pendudukTermuda = pendudukDAO.selectPendudukTermuda(idKelurahan.get());
-
-    		model.addAttribute("pendudukTertua", pendudukTertua);
-    		model.addAttribute("pendudukTermuda", pendudukTermuda);
-    		model.addAttribute("listPenduduk", listPenduduk);
-
-    		return "penduduk/list"; 
-    		
-    	} 
-    	// Return form pencarian
-    	else {
-    		List<KotaModel> daftarKota = kotaDAO.selectDaftarKota();
-        	List<KecamatanModel> daftarKecamatan = kecamatanDAO.selectDaftarKecamatan();
-        	List<KelurahanModel> daftarKelurahan = kelurahanDAO.selectDaftarKelurahan();
-        	
-        	model.addAttribute("daftarKota", daftarKota);
-        	model.addAttribute("daftarKecamatan", daftarKecamatan);
-        	model.addAttribute("daftarKelurahan", daftarKelurahan);
-            return "penduduk/cari";
-    	}
-    }
     
     @RequestMapping(value="/penduduk/ubah/{nik}", method=RequestMethod.GET)
 	public String formUbahPenduduk(@PathVariable(value = "nik") String nik, Model model) {
@@ -166,10 +122,7 @@ public class PendudukController {
 		PendudukModel penduduk = pendudukDAO.selectPenduduk(nik);
 		penduduk.setTanggal_lahir(formatDate(penduduk.getTanggal_lahir()));
 		model.addAttribute("pendudukModel", penduduk);
-//		model.addAttribute("golonganDarah", GOLONGAN_DARAH);
-//		model.addAttribute("agama", AGAMA);
-//		model.addAttribute("statusPerkawinan", STATUS_PERKAWINAN);
-//		model.addAttribute("statusDalamKeluarga", STATUS_DALAM_KELUARGA);
+
 		return "penduduk/edit";
 	}
     
@@ -248,6 +201,51 @@ public class PendudukController {
         return "penduduk/sukses-update";
     }
     
+    @RequestMapping("/penduduk/cari")
+	private String searchPenduduk(Model model, 
+			@RequestParam(value = "id_kota", required = false) Optional<Integer> id_kota,
+			@RequestParam(value = "id_kecamatan", required = false) Optional<Integer> id_kecamatan,
+			@RequestParam(value = "id_kelurahan", required = false) Optional<Integer> id_kelurahan
+			)
+	{
+					
+    	List<KotaModel> daftarKota = pendudukDAO.selectDaftarKota();
+    	List<KecamatanModel> daftarKecamatan = pendudukDAO.selectDaftarKecamatan();
+    	List<KelurahanModel> daftarKelurahan = pendudukDAO.selectDaftarKelurahan();
+    	
+    	model.addAttribute("kotas", daftarKota);
+    	model.addAttribute("kecamatans", daftarKecamatan);
+    	model.addAttribute("kelurahans", daftarKelurahan);
+    	
+			if (id_kota.isPresent() && id_kecamatan.isPresent() && id_kelurahan.isPresent())
+			{
+				
+	    		List <PendudukModel> penduduks = pendudukDAO.selectListPenduduk(id_kelurahan.get());
+	        	
+	    		PendudukModel pendudukTertua = pendudukDAO.selectPendudukTertua(id_kelurahan.get());
+	    		PendudukModel pendudukTermuda = pendudukDAO.selectPendudukTermuda(id_kelurahan.get());
+
+	    		model.addAttribute("pendudukTertua", pendudukTertua);
+	    		model.addAttribute("pendudukTermuda", pendudukTermuda);
+	    		model.addAttribute("listPenduduk", penduduks);
+	    		
+	    		KotaModel namaKota = pendudukDAO.selectKotaSearch(id_kota);
+	    		KecamatanModel namaKecamatan = pendudukDAO.selectKecamatanSearch(id_kecamatan);
+	    		KelurahanModel namaKelurahan = pendudukDAO.selectKelurahanSearch(id_kelurahan);
+	    		
+	    		model.addAttribute("namaKota",namaKota);
+	    		model.addAttribute("namaKecamatan",namaKecamatan);
+	    		model.addAttribute("namaKelurahan",namaKelurahan);
+
+	    					
+				model.addAttribute("penduduks", penduduks);
+				return "penduduk/hasil-cari";
+			}
+			
+	
+		return "penduduk/cari";
+	}
+    
     
     /*
      * Other methods
@@ -310,5 +308,7 @@ public class PendudukController {
 			return String.valueOf(Long.parseLong(lastNoUrutNik)+1);
 		}
 	}
+	
+	
 	
 }

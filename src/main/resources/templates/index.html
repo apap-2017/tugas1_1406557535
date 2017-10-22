@@ -27,27 +27,37 @@
 			</form>
 		</div>
 		<div class="col-lg-2"></div>
+		
+		
 		<div class="col-lg-5 mb-4">
 			<h5>Edit Data Penduduk berdasarkan NIK</h5>
-			<form name="sentMessage" id="penduduk" th:action="@{/penduduk/ubah/}" method="get">
+			<form id="penduduk_ubah" onsubmit="yourFunction()">
 				<div class="control-group form-group">
 					<div class="controls">
 						<label>Masukkan Nomor Induk Kependudukan</label> 
-						<input type="text" class="form-control" id="nik" name="nik" data-validation-required-message="Mohon masukkan NIK" required="true"/>
+						<input type="text" class="form-control" id="nik_ubah" name="nik_ubah" data-validation-required-message="Mohon masukkan NIK" required="true"/>
 						<p class="help-block"></p>
 					</div>
 				</div>
 				<button style="cursor:pointer;" type="submit" class="btn btn-info">Edit</button>
 			</form>
+			
+			<script>
+			function yourFunction(){
+			    var action_src = "http://localhost:8080/penduduk/ubah/" + document.getElementsByName("nik_ubah")[0].value;
+			    var your_form = document.getElementById('penduduk_ubah');
+			    your_form.action = action_src ;
+			}
+			</script>
 		</div>
 	</div>
-	<!--  end of Lihat Penduduk Berdasarkan NIK -->
+	<!--  end of  Penduduk Berdasarkan NIK -->
 	
 	<hr />
 	
-	<!--  Lihat Data Keluarga Berdasarkan NKK -->
+	<!--   Data Keluarga Berdasarkan NKK -->
 	<div class="row">
-		<div class="col-lg-8 mb-4">
+		<div class="col-lg-5 mb-4">
 			<h5>Lihat Data Keluarga berdasarkan NKK</h5>
 			<form name="sentMessage" id="keluarga" action="/keluarga" method="get">
 				<div class="control-group form-group">
@@ -60,8 +70,30 @@
 				<button style="cursor:pointer;"  type="submit" class="btn btn-primary">Lihat</button>
 			</form>
 		</div>
+			<div class="col-lg-2"></div>
+		<div class="col-lg-5 mb-4">
+			<h5>Edit Data Keluarga berdasarkan NKK</h5>
+			<form id="keluarga_ubah" onsubmit="yourFunctionKel()">
+				<div class="control-group form-group">
+					<div class="controls">
+						<label>Masukkan Nomor KK</label> 
+						<input type="text" class="form-control" id="nkk_ubah" name="nkk_ubah" data-validation-required-message="Mohon masukkan NKK" required="true"/>
+						<p class="help-block"></p>
+					</div>
+				</div>
+				<button style="cursor:pointer;" type="submit" class="btn btn-info">Edit</button>
+			</form>
+			
+			<script>
+			function yourFunctionKel(){
+			    var action_src = "http://localhost:8080/keluarga/ubah/" + document.getElementsByName("nkk_ubah")[0].value;
+			    var your_form = document.getElementById('keluarga_ubah');
+			    your_form.action = action_src ;
+			}
+			</script>
+		</div>
 	</div>
-	<!--  end of Lihat Penduduk Berdasarkan NIK -->
+	<!--  end of  Keluarga Berdasarkan NKK-->
 	
 	<!-- end of Container -->
 

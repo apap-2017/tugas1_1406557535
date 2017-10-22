@@ -4,17 +4,18 @@
 
 <div th:fragment="content" class="container">
 	<h3 class="my-4" th:text="'Tambah Penduduk'">Tambah Penduduk</h3>
-	<!--  Tambah Penduduk -->
+	<!--  Cari Penduduk -->
 	<div class="row">
 		<div class="col-lg-8 mb-4">
 					
-			<form class="form-horizontal" th:action="@{/penduduk/cari}" method="get">   
+			 <form class="form-horizontal" th:action="@{/penduduk/cari}" method="get">
+			   
 				<div class="form-group">
 					<label class="col-sm-2 control-label">Kota</label>
 					<div class="col-sm-10">
-						<select name="kt" onblur="selectKecamatan(this.value)" class="form-control">
+						<select name="id_kota" onblur="selectKecamatan(this.value)" class="form-control">
 							<option value="">Pilih Kota</option>
-							<div th:each="kota, iterationStatus: ${daftarKota}">
+							<div th:each="kota, iterationStatus: ${kotas}">
 								<option th:text="${kota.nama_kota}" th:value="${kota.id}"></option>
 							</div>
 						</select>
@@ -24,7 +25,7 @@
 				<div class="form-group">
 					<label class="col-sm-2 control-label">Kecamatan</label>
 					<div class="col-sm-10">
-						<select id="idSelectKecamatan" th:onblur="'selectKelurahan(this.value)'" name="kc" class="form-control">
+						<select id="idSelectKecamatan" th:onblur="'selectKelurahan(this.value)'" name="id_kecamatan" class="form-control">
 							<option value="0" >Pilih Kecamatan</option>
 						</select>
 					</div>
@@ -33,7 +34,7 @@
 				<div class="form-group">
 					<label class="col-sm-2 control-label">Kelurahan</label>
 					<div class="col-sm-10">
-						<select name="kl" id="idSelectKelurahan" class="form-control">
+						<select name="id_kelurahan" id="idSelectKelurahan" class="form-control">
 							<option value="0" >Pilih Kelurahan</option>
 						</select>
 					</div>
@@ -43,6 +44,34 @@
 				<button type="submit" class="btn btn-sm bg-teal pull-right">Submit</button>
 			</div>
 		</form>		
+
+    <script type="text/javascript" th:inline="javascript">
+		var listKota = [[${kotas}]];
+		var listKecamatan = [[${kecamatans}]];
+		var listKelurahan = [[${kelurahans}]];
+		function selectKecamatan(idKota){
+			var result = '';
+			for(var i in listKecamatan){
+				var id = listKecamatan[i].id;
+				var name = listKecamatan[i].nama_kecamatan;
+				if(listKecamatan[i].id_kota == idKota){
+					result += '<option value="' + id + '">' + name + '</option>';
+				}
+			}
+			document.getElementById("idSelectKecamatan").innerHTML = result;
+		}
+		function selectKelurahan(idKecamatan){
+			var result = '';
+			for(var i in listKelurahan){
+				var id = listKelurahan[i].id;
+				var name = listKelurahan[i].nama_kelurahan;
+				if(listKelurahan[i].id_kecamatan == idKecamatan){
+					result += '<option value="' + id + '">' + name + '</option>';
+				}
+			}
+			document.getElementById("idSelectKelurahan").innerHTML = result;
+		}
+	</script>
 		</div>
 	</div>
 	<!--  end of Cari Penduduk -->
