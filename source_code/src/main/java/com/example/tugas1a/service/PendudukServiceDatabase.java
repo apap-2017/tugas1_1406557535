@@ -39,12 +39,6 @@ public class PendudukServiceDatabase implements PendudukService {
 		pendudukMapper.addPenduduk(penduduk);
 	}
 	
-//	@Override
-//	public void updatePenduduk(PendudukModel penduduk) {
-//		pendudukMapper.updatePenduduk(penduduk);
-//		
-//	}
-	
 	@Override
 	public List<PendudukModel> selectListPenduduk(Integer id_kelurahan) {
 		return pendudukMapper.selectListPenduduk(id_kelurahan);
@@ -99,12 +93,6 @@ public class PendudukServiceDatabase implements PendudukService {
 		 return pendudukMapper.selectDaftarKelurahan();
 	}
 	
-//	@Override
-//	public KeluargaModel selectKeluarga(Integer id) {
-//		log.info ("select keluarga with id {}", id);
-//        return pendudukMapper.selectKeluarga(id);
-//	}
-	
 	@Override
 	public String getLast(String minNik, String maxNik) {
 		log.info ("get max nik between {} and {}", minNik, maxNik);
@@ -116,45 +104,42 @@ public class PendudukServiceDatabase implements PendudukService {
 			String golongan_darah, String agama, String status_perkawinan, String pekerjaan, Integer is_wni,
 			Integer is_wafat, Integer id_keluarga, String status_dalam_keluarga) {
 		
-		pendudukMapper.updatePenduduk(nik, newNik, nama, tempat_lahir, tanggal_lahir, jenis_kelamin, golongan_darah, agama, status_perkawinan, pekerjaan, is_wni, is_wafat, id_keluarga, status_dalam_keluarga);
-		//System.out.println("WWW " + nik );
-		// TODO Auto-generated method stub
-		
+		pendudukMapper.updatePenduduk(nik, newNik, nama, tempat_lahir, tanggal_lahir, jenis_kelamin, golongan_darah, agama, status_perkawinan, pekerjaan, is_wni, is_wafat, id_keluarga, status_dalam_keluarga);		
 	}
 	
 	@Override
 	public List<KecamatanModel> selectKecamatanByKota(String id_kota) {
-		// TODO Auto-generated method stub
+		
 		return pendudukMapper.selectKecamatanByKota(Integer.parseInt(id_kota));
 	}
 	
 	@Override
 	public KotaModel selectKotaSearch(Optional<Integer> id_kota) {
-		// TODO Auto-generated method stub
+		
 		return pendudukMapper.selectKotaSearch(id_kota.get());
 	}
 	
 	@Override
 	public KecamatanModel selectKecamatanSearch(Optional<Integer> id_kecamatan) {
-		// TODO Auto-generated method stub
+		
 		return pendudukMapper.selectKecamatanSearch(id_kecamatan.get());
 	}
 	
 	@Override
 	public KelurahanModel selectKelurahanSearch(Optional<Integer> id_kelurahan) {
-		// TODO Auto-generated method stub
+		
 		return pendudukMapper.selectKelurahanSearch(id_kelurahan.get());
 	}
 	
 	@Override
 	public List<PendudukModel> selectPendudukByKelurahan(String id_kelurahan) {
-		// TODO Auto-generated method stub
+		
 		return pendudukMapper.selectPendudukByDaerah(Integer.parseInt(id_kelurahan));
 	}
 	
 	@Override
 	public List<KelurahanModel> selectKelurahansByKecamatan(String id_kecamatan) {
-		// TODO Auto-generated method stub
+		
 		return pendudukMapper.selectKelurahansByKecamatan(Integer.parseInt(id_kecamatan));
 	}
 }

@@ -23,7 +23,6 @@ public class PendudukModel {
 	private String tempat_lahir;
 	
 	@NotNull(message="Wajib diisi!")
-//	@Pattern(regexp = "\\d{2}(-|\\/)\\d{2}(-|\\/)\\d{4}", message = "Format dd-MM-yyyy") // Ganti regex atau pake datepicker
 	private String tanggal_lahir;
 	
 	@NotNull(message="Wajib diisi!")

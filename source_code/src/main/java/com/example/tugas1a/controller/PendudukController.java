@@ -32,21 +32,14 @@ public class PendudukController {
 	
 	@Autowired
 	PendudukService pendudukDAO;
-	KeluargaService keluargaDAO;
-	KotaService kotaDAO;
-	KelurahanService kelurahanDAO;
-	KecamatanService kecamatanDAO;
-
-	@RequestMapping("/master")
-	public String master() {
-		return "layout/master";
-	}
 	
+	// return home page
 	@RequestMapping("/")
 	public String index() {
 		return "index";
 	}
 	
+	// Fitur 1 - Tampilkan Data Penduduk Berdasarkan NIK
 	@RequestMapping("/penduduk")
 	public String pendudukViewNIK(Model model, @RequestParam(value="nik", required=true) String nik) {
 		PendudukModel penduduk = pendudukDAO.selectPenduduk(nik);
@@ -60,12 +53,14 @@ public class PendudukController {
 		}
 	}
 	
+	// Fitur 3 - Menambahkan Penduduk Baru Sebagai Anggota Keluarga
     @RequestMapping(value="/penduduk/tambah", method = RequestMethod.GET)
     public String addPenduduk (Model model, PendudukModel penduduk)
     {
         return "penduduk/add";
     }
     
+    // Fitur 3 - Menambahkan Penduduk Baru Sebagai Anggota Keluarga
     @RequestMapping(value= "/penduduk/tambah", method = RequestMethod.POST)
     public String addPendudukSubmit (Model model, 
     		@Valid PendudukModel penduduk, 
@@ -115,7 +110,7 @@ public class PendudukController {
     	}
     }
     
-    
+    //Fitur 5 - Mengubah Data Penduduk
     @RequestMapping(value="/penduduk/ubah/{nik}", method=RequestMethod.GET)
 	public String formUbahPenduduk(@PathVariable(value = "nik") String nik, Model model) {
 		// Select penduduk
@@ -126,6 +121,7 @@ public class PendudukController {
 		return "penduduk/edit";
 	}
     
+    //Fitur 5 - Mengubah Data Penduduk
     @RequestMapping(value="/penduduk/ubah/{nik}", method=RequestMethod.POST)
 	public String ubahPenduduk(
 			@PathVariable(value = "nik") String nik, 
@@ -171,7 +167,7 @@ public class PendudukController {
 		}
 	}
     
-    
+    //Fitur 7 - Mengubah Status Kematian Penduduk
     @RequestMapping(value= "/penduduk/mati", method = RequestMethod.POST)
     public String updateStatusKematian (Model model, 
     		@RequestParam(value = "nik") String nik)
@@ -201,6 +197,8 @@ public class PendudukController {
         return "penduduk/sukses-update";
     }
     
+    
+    // Fitur 8 - [15] Tampilkan Data Penduduk Berdasarkan Kota/Kabupaten, Kecamatan, dan Kelurahan Tertentu 
     @RequestMapping("/penduduk/cari")
 	private String searchPenduduk(Model model, 
 			@RequestParam(value = "kt", required = false) Optional<Integer> id_kota,
@@ -245,10 +243,11 @@ public class PendudukController {
 	
 		return "penduduk/cari";
 	}
+    // End of Fitur 8
     
     
     /*
-     * Other methods
+     * Reusable methods
      */
 	private String formatDate(String data) {
 		Date oldDate = stringToDateYMD(data);
@@ -301,14 +300,16 @@ public class PendudukController {
 		}
 		String minNik = kodeDaerah.substring(0, 6) + newTanggal.substring(0, 4) + newTanggal.substring(newTanggal.length()-2, newTanggal.length()) + "0001";
 		String maxNik = String.valueOf(Long.parseLong(minNik)+9999);
-		String lastNoUrutNik = pendudukDAO.getLast(minNik, maxNik);
-		if(lastNoUrutNik == null) {
+		String lastNIK = pendudukDAO.getLast(minNik, maxNik);
+		if(lastNIK == null) {
 			return minNik;
 		} else {
-			return String.valueOf(Long.parseLong(lastNoUrutNik)+1);
+			return String.valueOf(Long.parseLong(lastNIK)+1);
 		}
 	}
-	
+	/*
+     * End of Reusable methods
+     */
 	
 	
 }

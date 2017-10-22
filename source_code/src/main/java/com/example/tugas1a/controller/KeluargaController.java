@@ -34,6 +34,7 @@ public class KeluargaController {
 	KelurahanService kelurahanDAO;
 	KecamatanService kecamatanDAO;
 	
+	//Fitur 2 - Tampilkan Data Keluarga Beserta Daftar Anggotanya Berdasarkan Nomor KK
     @RequestMapping(value = "/keluarga",method = RequestMethod.GET)
     public String anggotaKeluarga(Model model,
     		@RequestParam(value="nkk") String nkk){
@@ -52,6 +53,7 @@ public class KeluargaController {
     	 }
    }	
     
+    //Fitur 4 - Menambahkan Keluarga Baru
     @RequestMapping(value="/keluarga/tambah", method = RequestMethod.GET)
     public String addKeluarga (Model model, KeluargaModel keluarga)
     {
@@ -65,6 +67,7 @@ public class KeluargaController {
         return "keluarga/add";
     }
     
+    //Fitur 4 - Menambahkan Keluarga Baru
     @RequestMapping(value= "/keluarga/tambah", method = RequestMethod.POST)
     public String addKeluargaSubmit (Model model, @Valid KeluargaModel keluarga, BindingResult bindingResult,
     		@RequestParam(value = "kota") Integer idKota,
@@ -99,7 +102,7 @@ public class KeluargaController {
 
     }
     
-    
+    //Fitur 6 - Mengubah Data Keluarga
     @RequestMapping(value= "/keluarga/ubah/{nkk}", method = RequestMethod.GET)
     public String editKeluarga (Model model, @PathVariable(value = "nkk") String nkk)
     {
@@ -140,7 +143,8 @@ public class KeluargaController {
         
     	return "keluarga/edit";
     }
-
+    
+    //Fitur 6 - Mengubah Data Keluarga
     @RequestMapping(value= "/keluarga/ubah/{nkk}", method = RequestMethod.POST)
     public String updateKeluargaSubmit (@PathVariable(value="nkk") String nkk, Model model,
     		@RequestParam(value = "alamat") String alamat,
@@ -222,5 +226,6 @@ public class KeluargaController {
     	
     	return"keluarga/sukses-update";
     }
+    //End of Fitur 6
 	
 }

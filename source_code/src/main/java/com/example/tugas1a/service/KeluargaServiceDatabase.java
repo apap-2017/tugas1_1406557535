@@ -19,18 +19,11 @@ import lombok.extern.slf4j.Slf4j;
 public class KeluargaServiceDatabase implements KeluargaService {
 	@Autowired
 	private KeluargaMapper keluargaMapper;
-
-//	@Override
-//	public KeluargaModel selectKeluarga(String nomor_kk) {
-//		log.info ("select keluarga with nomor_kk {}", nomor_kk);
-//		return keluargaMapper.selectKeluarga(nomor_kk);
-//	}
 	
 	@Override
 	public KeluargaModel selectKartuKeluarga(String nkk) {
 		 log.info ("select keluarga with nkk {}", nkk);
 	        return keluargaMapper.selectKartuKeluarga (nkk);
-		
 	}
 
 	@Override
