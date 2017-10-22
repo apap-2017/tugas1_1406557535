@@ -203,9 +203,9 @@ public class PendudukController {
     
     @RequestMapping("/penduduk/cari")
 	private String searchPenduduk(Model model, 
-			@RequestParam(value = "id_kota", required = false) Optional<Integer> id_kota,
-			@RequestParam(value = "id_kecamatan", required = false) Optional<Integer> id_kecamatan,
-			@RequestParam(value = "id_kelurahan", required = false) Optional<Integer> id_kelurahan
+			@RequestParam(value = "kt", required = false) Optional<Integer> id_kota,
+			@RequestParam(value = "kc", required = false) Optional<Integer> id_kecamatan,
+			@RequestParam(value = "kl", required = false) Optional<Integer> id_kelurahan
 			)
 	{
 					
